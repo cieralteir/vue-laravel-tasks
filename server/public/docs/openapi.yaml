@@ -1,0 +1,386 @@
+openapi: 3.0.3
+info:
+  title: TODO
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: 'Login user'
+      operationId: loginUser
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: kemmer.yasmeen@example.org
+                password:
+                  type: string
+                  description: ''
+                  example: rerum
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: 'Register user'
+      operationId: registerUser
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: emanuel01@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: ipsum
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: 'Logout user'
+      operationId: logoutUser
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+  /api/user:
+    get:
+      summary: 'Display authenticated user'
+      operationId: displayAuthenticatedUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+  /api/tasks:
+    get:
+      summary: 'Display tasks'
+      operationId: displayTasks
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    post:
+      summary: 'Create task'
+      operationId: createTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: ad
+                description:
+                  type: string
+                  description: ''
+                  example: quia
+                priority:
+                  type: string
+                  description: ''
+                  example: normal
+                  enum:
+                    - urgent
+                    - high
+                    - normal
+                    - low
+                due_at:
+                  type: string
+                  description: 'Must be a valid date. Must be a date after or equal to <code>today</code>.'
+                  example: '2112-09-21'
+              required:
+                - title
+                - description
+  '/api/tasks/{id}':
+    get:
+      summary: 'Display task'
+      operationId: displayTask
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    put:
+      summary: 'Update task'
+      operationId: updateTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: quas
+                description:
+                  type: string
+                  description: ''
+                  example: ducimus
+                priority:
+                  type: string
+                  description: ''
+                  example: normal
+                  enum:
+                    - urgent
+                    - high
+                    - normal
+                    - low
+                due_at:
+                  type: string
+                  description: 'Must be a valid date. Must be a date after or equal to <code>today</code>.'
+                  example: '2118-02-01'
+              required:
+                - title
+                - description
+    delete:
+      summary: 'Delete task'
+      operationId: deleteTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the task.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/complete':
+    put:
+      summary: 'Complete task'
+      operationId: completeTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/uncomplete':
+    put:
+      summary: 'Mark as todo task'
+      operationId: markAsTodoTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/archive':
+    put:
+      summary: 'Archive task'
+      operationId: archiveTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/restore':
+    put:
+      summary: 'Restore task'
+      operationId: restoreTask
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/files':
+    post:
+      summary: 'Create task file'
+      operationId: createTaskFile
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 'Must be a file.'
+              required:
+                - file
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 3
+        required: true
+        schema:
+          type: integer
+  '/api/files/{file_id}':
+    get:
+      summary: 'Display file'
+      operationId: displayFile
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+    delete:
+      summary: 'Delete file'
+      operationId: deleteFile
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: file_id
+        description: 'The ID of the file.'
+        example: 2
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []

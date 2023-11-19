@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col w-96 h-[850px] rounded bg-neutral-800">
-    <div class="flex justify-between p-3">
+  <div class="flex flex-col h-full md:w-96 rounded bg-neutral-900">
+    <div class="flex justify-between p-3 md:px-0">
       <h3 class="text font-medium">{{ title }}</h3>
     </div>
-    <div class="flex-grow flex flex-col gap-2 px-3 pb-3 overflow-auto">
+    <div class="flex-grow flex flex-col gap-2 w-[95vw] md:w-96 px-3 md:pl-0 pb-3 overflow-auto">
       <TaskListCard
         :task="task"
         @select="onTaskSelect"
@@ -16,12 +16,6 @@
         :key="task.id"
       />
     </div>
-    <!-- <div class="flex justify-center gap-5 px-5 py-3">
-      <button>FIRST</button>
-      <button>PREV</button>
-      <button>NEXT</button>
-      <button>LAST</button>
-    </div> -->
   </div>
 </template>
 

@@ -36,4 +36,8 @@ export default class TaskService {
   static restore(id, params = {}) {
     return api.put(`/tasks/${id}/restore`, null, { params });
   }
+
+  static createFile(id, data = {}, params = {}) {
+    return api.post(`/tasks/${id}/files`, data, { params });
+  }
 }

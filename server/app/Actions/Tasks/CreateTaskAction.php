@@ -2,6 +2,7 @@
 
 namespace App\Actions\Tasks;
 
+use App\Actions\Files\UploadFileAction;
 use App\Actions\Tags\AttachTagsByNameAction;
 use App\Models\Tasks\Task;
 
@@ -21,6 +22,13 @@ class CreateTaskAction
         // Attach tags
         if (isset($data['tags'])) {
             AttachTagsByNameAction::execute($task, $data['tags']);
+        }
+
+        // Attach files
+        if (isset($data['files'])) {
+            foreach ($data['files'] as $file) {
+                UploadFileAction::execute($task, $file);
+            }
         }
 
         return $task->fresh();

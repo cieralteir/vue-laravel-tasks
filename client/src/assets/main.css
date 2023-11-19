@@ -5,10 +5,27 @@
 @layer base {
   body {
     @apply h-screen;
+    @apply w-screen;
     @apply bg-neutral-900;
     @apply text-neutral-50;
   }
   #app {
     @apply h-full;
+    @apply w-full;
+  }
+
+  ::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-800;
+    @apply rounded;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-700;
+    @apply rounded;
   }
 }

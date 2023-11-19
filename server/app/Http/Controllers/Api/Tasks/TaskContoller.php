@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tasks;
+namespace App\Http\Controllers\Api\Tasks;
 
 use App\Actions\Tasks\CreateTaskAction;
 use App\Actions\Tasks\DeleteTaskAction;
@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class TaskContoller extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display tasks
      *
      * @param Request $request
      */
@@ -47,7 +47,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create task
      *
      * @param CreateTaskRequest $request
      */
@@ -59,7 +59,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display task
      *
      * @param Task $task
      */
@@ -69,7 +69,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update task
      *
      * @param UpdateTaskRequest $request
      * @param Task $task
@@ -82,7 +82,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete task
      *
      * @param Task $task
      */
@@ -94,7 +94,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Mark as complete the specified resource from storage.
+     * Complete task
      *
      * @param Task $task
      */
@@ -108,7 +108,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Mark as incomplete the specified resource from storage.
+     * Mark as todo task
      *
      * @param Task $task
      */
@@ -122,7 +122,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Archive the specified resource from storage.
+     * Archive task
      *
      * @param Task $task
      */
@@ -136,7 +136,7 @@ class TaskContoller extends Controller
     }
 
     /**
-     * Restore the specified resource from storage.
+     * Restore task
      *
      * @param Task $task
      */

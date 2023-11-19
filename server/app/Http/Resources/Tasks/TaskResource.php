@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Tasks;
 
+use App\Http\Resources\Files\FileResource;
 use App\Http\Resources\Tags\TagResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,7 +16,7 @@ class TaskResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $includes = $request->get('includes');
+        $includes = $request->includes;
         $includes = $includes ? explode(',', $includes) : [];
         $this->loadMissing($includes);
 
@@ -31,6 +32,7 @@ class TaskResource extends JsonResource
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
             'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'files' => FileResource::collection($this->whenLoaded('files')),
         ];
     }
 }

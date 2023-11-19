@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Tasks\TaskContoller;
+use App\Http\Controllers\Api\Files\FileController;
+use App\Http\Controllers\Api\Tasks\TaskContoller;
+use App\Http\Controllers\Api\Tasks\TaskFileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,9 @@ Route::name('auth.')->controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    /**
+     * Display authenticated user
+     */
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -38,5 +43,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{task}/uncomplete', 'uncomplete')->name('uncomplete')->can('manage', 'task');
         Route::put('/{task}/archive', 'archive')->name('archive')->can('manage', 'task');
         Route::put('/{task}/restore', 'restore')->name('restore')->can('manage', 'task');
+    });
+
+    Route::name('tasks.files')->prefix('tasks')->controller(TaskFileController::class)->group(function () {
+        Route::post('/{task}/files', 'store')->name('store')->can('manage', 'task');
+    });
+
+    Route::name('files')->prefix('files')->controller(FileController::class)->group(function () {
+        Route::get('/{file}', 'show')->name('show');
+        Route::delete('/{file}', 'destroy')->name('destroy');
     });
 });

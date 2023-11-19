@@ -1,5 +1,5 @@
 <template>
-  <div class="w-96 p-9 rounded-md bg-neutral-800">
+  <div class="w-96 p-9 rounded-md md:bg-neutral-800">
     <h1 class="text-2xl font-medium">LOGIN</h1>
     <form @submit.prevent="login">
       <div class="flex flex-col gap-4 my-9">
@@ -17,13 +17,13 @@
         />
       </div>
       <button
-        class="w-full p-4 mb-2 rounded-md bg-neutral-900 hover:bg-neutral-700"
+        class="w-full p-4 mb-2 rounded-md bg-neutral-800 md:bg-neutral-900 hover:bg-neutral-700 font-medium"
         type="submit"
       >
         LOGIN
       </button>
       <button
-        class="w-full p-4 rounded-md hover:bg-neutral-700"
+        class="w-full p-4 rounded-md hover:bg-neutral-700 font-medium"
         @click.prevent="register"
       >
         REGISTER

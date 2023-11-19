@@ -1,63 +1,64 @@
 <template>
   <BaseModal>
-    <div
-      class="relative top-20 w-128 py-9 mx-auto rounded-md bg-neutral-800 shadow-lg"
-    >
-      <div class="flex justify-between px-9">
-        <h1 class="text-2xl font-medium">FILTER TASKS</h1>
-        <button @click="close">CLOSE</button>
-      </div>
-      <div class="flex flex-col gap-4 h-[60vh] my-9 px-9 overflow-auto">
-        <BaseInput v-model="form.title" label="Title" />
-        <BaseInput
-          v-model="form.description"
-          label="Description"
-          :attrs="{ type: 'textarea' }"
-        />
-        <BaseSelect
-          v-model="form.priority"
-          label="Priority"
-          :options="priorities"
-        />
-        <BaseInput
-          v-model="form.due_at_start"
-          label="Due Date Start"
-          :attrs="{ type: 'date' }"
-        />
-        <BaseInput
-          v-model="form.due_at_end"
-          label="Due Date End"
-          :attrs="{ type: 'date' }"
-        />
-        <BaseInput
-          v-model="form.completed_at_start"
-          label="Completed Date Start"
-          :attrs="{ type: 'date' }"
-        />
-        <BaseInput
-          v-model="form.completed_at_end"
-          label="Completed Date End"
-          :attrs="{ type: 'date' }"
-        />
-        <BaseInput
-          v-model="form.archived_at_start"
-          label="Archived Date Start"
-          :attrs="{ type: 'date' }"
-        />
-        <BaseInput
-          v-model="form.archived_at_end"
-          label="Archived Date End"
-          :attrs="{ type: 'date' }"
-        />
-      </div>
-      <div class="flex gap-2 px-9">
-        <button
-          class="w-full p-4 rounded-md bg-neutral-900 hover:bg-neutral-700"
-          @click="filter"
-        >
-          FILTER
-        </button>
-      </div>
+    <div class="flex justify-between px-9">
+      <h1 class="text-2xl font-medium">FILTER TASKS</h1>
+      <button
+        class="p-2 px-3 rounded-md hover:bg-neutral-700 font-medium"
+        @click="close"
+      >
+        CLOSE
+      </button>
+    </div>
+    <div class="flex flex-col gap-4 h-[60vh] my-9 px-9 overflow-auto">
+      <BaseInput v-model="form.title" label="Title" />
+      <BaseInput
+        v-model="form.description"
+        label="Description"
+        :attrs="{ type: 'textarea' }"
+      />
+      <BaseSelect
+        v-model="form.priority"
+        label="Priority"
+        :options="priorities"
+      />
+      <BaseInput
+        v-model="form.due_at_start"
+        label="Due Date Start"
+        :attrs="{ type: 'date' }"
+      />
+      <BaseInput
+        v-model="form.due_at_end"
+        label="Due Date End"
+        :attrs="{ type: 'date' }"
+      />
+      <BaseInput
+        v-model="form.completed_at_start"
+        label="Completed Date Start"
+        :attrs="{ type: 'date' }"
+      />
+      <BaseInput
+        v-model="form.completed_at_end"
+        label="Completed Date End"
+        :attrs="{ type: 'date' }"
+      />
+      <BaseInput
+        v-model="form.archived_at_start"
+        label="Archived Date Start"
+        :attrs="{ type: 'date' }"
+      />
+      <BaseInput
+        v-model="form.archived_at_end"
+        label="Archived Date End"
+        :attrs="{ type: 'date' }"
+      />
+    </div>
+    <div class="flex gap-2 px-9">
+      <button
+        class="w-full p-3 rounded-md bg-neutral-700 font-medium"
+        @click="filter"
+      >
+        FILTER
+      </button>
     </div>
   </BaseModal>
 </template>

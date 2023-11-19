@@ -5,6 +5,7 @@
       v-model="value"
       class="w-full py-2 px-3 rounded border text-neutral-900 outline-none"
       v-bind="attrs"
+      @input="onInput"
     />
     <label class="block mt-2 text-sm text-red-500" v-if="error">
       {{ error }}
@@ -25,8 +26,14 @@ export default {
         ctx.emit("update:modelValue", value);
       },
     });
+
+    function onInput(e) {
+      ctx.emit("input", e);
+    }
+
     return {
       value,
+      onInput,
     };
   },
   props: {
@@ -44,6 +51,6 @@ export default {
       default: () => {},
     },
   },
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "input"],
 };
 </script>

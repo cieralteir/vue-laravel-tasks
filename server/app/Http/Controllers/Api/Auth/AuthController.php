@@ -14,8 +14,10 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     /**
-     * Login a user
+     * Login user
      *
+     * @unauthenticated
+     * 
      * @param LoginRequest $request
      */
     public function login(LoginRequest $request)
@@ -35,8 +37,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Register a user
+     * Register user
      *
+     * @unauthenticated
+     * 
      * @param RegisterRequest $request
      */
     public function register(RegisterRequest $request)
@@ -47,7 +51,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Logout a user
+     * Logout user
      *
      * @param Request $request
      */

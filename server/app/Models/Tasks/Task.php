@@ -2,10 +2,12 @@
 
 namespace App\Models\Tasks;
 
+use App\Models\Files\File;
 use App\Models\Tags\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Task extends Model
@@ -44,5 +46,13 @@ class Task extends Model
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'model', 'model_has_tags');
+    }
+
+    /**
+     * Get all of the files for the task.
+     */
+    public function files(): MorphMany
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }

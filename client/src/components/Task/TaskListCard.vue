@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-2 p-5 rounded bg-neutral-700 hover:bg-neutral-900 hover:cursor-pointer"
+    class="group flex flex-col gap-2 p-5 rounded bg-neutral-800 hover:bg-neutral-700 hover:cursor-pointer"
     @click="selectTask"
   >
     <div
@@ -8,13 +8,13 @@
         priorityColor ? `bg-[${priorityColor}]` : ''
       }`"
     />
-    <div>{{ task.title }}</div>
+    <div class="text-lg">{{ task.title }}</div>
     <div class="text-neutral-400">
       {{ task.description }}
     </div>
     <div class="flex gap-2" v-if="task.tags && task.tags.length">
       <div
-        class="p-1 px-3 rounded bg-neutral-600 text-sm"
+        class="p-1 px-3 rounded bg-neutral-700 group-hover:bg-neutral-800 text-sm"
         v-for="tag in task.tags || []"
         :key="tag.id"
       >
@@ -22,35 +22,39 @@
       </div>
     </div>
     <div div class="flex gap-2">
-      <span class="text-neutral-400 text-sm">F 3</span>
-      <span class="text-neutral-400 text-sm" v-if="task.due_at">
-        {{ task.due_at }}
+      <span class="text-neutral-400">
+        <font-awesome-icon :icon="['fas', 'file']" />
+        {{ (task.files || []).length }}
+      </span>
+      <span class="text-neutral-400" v-if="dueDateFormatted">
+        <font-awesome-icon :icon="['fas', 'calendar-day']" />
+        {{ dueDateFormatted }}
       </span>
     </div>
-    <div class="flex gap-2">
+    <div class="flex gap-2 mt-2">
       <button
-        class="w-[50%] p-1 rounded-full border-2 border-yellow-600 hover:bg-yellow-600 text-sm"
+        class="p-2 px-3 rounded-md hover:bg-neutral-800 font-medium"
         @click.stop="archiveTask"
         v-if="!task.archived_at"
       >
         ARCHIVE
       </button>
       <button
-        class="w-[50%] p-1 rounded-full border-2 border-green-800 hover:bg-green-800 text-sm"
+        class="p-2 px-3 rounded-md hover:bg-neutral-800 font-medium"
         @click.stop="restoreTask"
         v-if="task.archived_at"
       >
         RESTORE
       </button>
       <button
-        class="w-[50%] p-1 rounded-full border-2 border-green-800 hover:bg-green-800 text-sm"
+        class="p-2 px-3 rounded-md hover:bg-neutral-800 font-medium"
         @click.stop="completeTask"
         v-if="!task.archived_at && !task.completed_at"
       >
         COMPLETE
       </button>
       <button
-        class="w-[50%] p-1 rounded-full border-2 border-blue-700 hover:bg-blue-700 text-sm"
+        class="p-2 px-3 rounded-md hover:bg-neutral-800 font-medium"
         @click.stop="todoTask"
         v-if="!task.archived_at && task.completed_at"
       >
@@ -62,10 +66,17 @@
 
 <script>
 import { computed } from "vue";
+import { useToaster } from "../../stores/useToaster";
 import TaskService from "../../services/task.service";
+import moment from "moment";
 
+/* All supported classes for color props
+  bg-[#0096FF] bg-[#50C878]
+  bg-[#FFEA00] bg-[#EE4B2B]
+  */
 export default {
   setup(props, ctx) {
+    const toaster = useToaster();
     const priorityColor = computed(() => {
       switch (props.task.priority) {
         case "low":
@@ -78,6 +89,9 @@ export default {
           return "#EE4B2B";
       }
     });
+    const dueDateFormatted = computed(() =>
+      props.task?.due_at ? moment(props.task.due_at).format("YYYY-MM-DD") : ""
+    );
 
     function selectTask() {
       ctx.emit("select", props.task);
@@ -88,6 +102,7 @@ export default {
         const response = await TaskService.complete(props.task.id, {
           includes: "tags",
         });
+        toaster.toast("Task has been marked as completed.", "success");
         ctx.emit("complete", response.data.data);
       } catch (err) {
         console.error(err);
@@ -99,6 +114,7 @@ export default {
         const response = await TaskService.uncomplete(props.task.id, {
           includes: "tags",
         });
+        toaster.toast("Task has been marked as todo.", "success");
         ctx.emit("todo", response.data.data);
       } catch (err) {
         console.error(err);
@@ -110,6 +126,7 @@ export default {
         const response = await TaskService.archive(props.task.id, {
           includes: "tags",
         });
+        toaster.toast("Task has been archived.", "success");
         ctx.emit("archive", response.data.data);
       } catch (err) {
         console.error(err);
@@ -121,6 +138,7 @@ export default {
         const response = await TaskService.restore(props.task.id, {
           includes: "tags",
         });
+        toaster.toast("Task has been restored.", "success");
         ctx.emit("restore", response.data.data);
       } catch (err) {
         console.error(err);
@@ -129,6 +147,7 @@ export default {
 
     return {
       priorityColor,
+      dueDateFormatted,
       selectTask,
       completeTask,
       todoTask,
